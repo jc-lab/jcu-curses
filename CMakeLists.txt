@@ -39,11 +39,6 @@ target_include_directories(jcu_curses
         ${CURSES_INCLUDE_DIRS}
         ${INC_DIR}
         )
-set(CURSES_LIBRARIES
-        /usr/lib/debug/libncurses.so.5.9
-        /usr/lib/debug/libform.so.5
-        /usr/lib/debug/libtinfo.so.5
-        )
 
 target_link_libraries(jcu_curses
         PRIVATE
