@@ -21,7 +21,7 @@ class CSProgress : public CSWindow {
 
   CSProgress(CSWindow &parent, const CSWindowNoInitialize& no_initialize);
 
-  void printProgress(float progress);
+  void printProgress(float progress, const char* text_fmt = " %5.1f");
 };
 
 } // namespace curses

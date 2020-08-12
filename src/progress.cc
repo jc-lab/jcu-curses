@@ -24,13 +24,18 @@ CSProgress::CSProgress(CSWindow &parent, const CSWindowNoInitialize& no_initiali
 : CSWindow(parent, no_initialize)
 {};
 
-void CSProgress::printProgress(float progress) {
+void CSProgress::printProgress(float progress, const char* text_fmt) {
   std::vector<char> buffer(width_ + 1);
   int pos = 0;
   int i;
 
-  int max_bar_size = width_ - 9;
+  int max_bar_size = width_ - 3;
   int filled_bar_length = progress * max_bar_size;
+
+  char text_buffer[32];
+  int text_length = snprintf(text_buffer, sizeof(text_buffer), text_fmt, progress * 100.0f);
+
+  max_bar_size -= text_length;
 
   if (filled_bar_length > max_bar_size) {
     filled_bar_length = max_bar_size;
@@ -45,7 +50,9 @@ void CSProgress::printProgress(float progress) {
   }
   buffer[pos++] = ']';
 
-  pos += snprintf(&buffer[pos], buffer.size() - pos, " %5.1f", progress * 100.0f);
+  for (i = 0; i < text_length; i++) {
+    buffer[pos++] = text_buffer[i];
+  }
 
   for (; pos < width_; pos++) {
     buffer[pos] = ' ';
