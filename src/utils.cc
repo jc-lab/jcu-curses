@@ -17,8 +17,10 @@ namespace jcu {
 namespace curses {
 
 void mySleepMs(int time) {
-  __syscall_slong_t nsec = 1000000 * time;
-  struct timespec timeout = {.tv_sec = 0, .tv_nsec = nsec};
+  long nsec = 1000000 * time;
+  struct timespec timeout = {0};
+  timeout.tv_sec = time / 1000;
+  timeout.tv_nsec = (time % 1000) * 1000000;
   clock_nanosleep(CLOCK_MONOTONIC, 0 , &timeout, nullptr);
 }
 
